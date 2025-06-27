@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Palabras que Danzan</title>
+  <style>
+    body { font-family: sans-serif; background: #f0f0f0; padding: 2em; }
+    .drop-zone { display: inline-block; width: 100px; border-bottom: 2px dashed #888; margin: 0 5px; }
+    .palabra { background: #3498db; color: white; padding: 8px 12px; border-radius: 6px; cursor: grab; margin: 5px; display: inline-block; }
+  </style>
+</head>
+<body>
+  <h2>✍️ Palabras que Danzan</h2>
+  <p>Arrastra las palabras al lugar correcto en el microcuento.</p>
+  <div>
+    El <span class="drop-zone" data-correct="Inti"></span> se levantó sobre los Andes mientras los Wawa Danza alistaban su <span class="drop-zone" data-correct="atuendo"></span> para danzar.<br><br>
+    La <span class="drop-zone" data-correct="Allpamama"></span> les daba la fuerza, y el sonido del <span class="drop-zone" data-correct="Pinkullu"></span> guiaba sus pasos.
+  </div>
+  <div id="opciones">
+    <div class="palabra" draggable="true">Inti</div>
+    <div class="palabra" draggable="true">atuendo</div>
+    <div class="palabra" draggable="true">Allpamama</div>
+    <div class="palabra" draggable="true">Pinkullu</div>
+  </div>
+  <button onclick="evaluar()">Evaluar</button>
+  <button onclick="location.reload()">Reiniciar</button>
+  <script>
+    let palabraArrastrada = null;
+    document.querySelectorAll('.palabra').forEach(p => {
+      p.addEventListener('dragstart', () => palabraArrastrada = p);
+    });
+    document.querySelectorAll('.drop-zone').forEach(z => {
+      z.addEventListener('dragover', e => e.preventDefault());
+      z.addEventListener('drop', () => {
+        if (palabraArrastrada) {
+          z.textContent = palabraArrastrada.textContent;
+          z.setAttribute('data-user', palabraArrastrada.textContent);
+        }
+      });
+    });
+    function evaluar() {
+      let correctas = 0;
+      document.querySelectorAll('.drop-zone').forEach(z => {
+        if (z.getAttribute('data-user') === z.getAttribute('data-correct')) correctas++;
+      });
+      alert(correctas === 4 ? "✅ ¡Excelente!" : `❌ Tienes ${correctas} correctas.`);
+    }
+  </script>
+</body>
+</html>

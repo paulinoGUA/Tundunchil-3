@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ruta del Tundunchil</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; background: #fffdf4; }
+    .pregunta { margin-bottom: 1em; }
+  </style>
+</head>
+<body>
+  <h2>🧭 Ruta del Tundunchil</h2>
+  <div class="pregunta">
+    ¿Qué significa “ayñi”?<br>
+    <input type="radio" name="q1" value="incorrecto"> Un tambor<br>
+    <input type="radio" name="q1" value="correcto"> Principio de ayuda mutua<br>
+    <input type="radio" name="q1" value="incorrecto"> Dios de la tierra<br>
+  </div>
+  <div class="pregunta">
+    ¿En qué fiesta participan los Tundunchil?<br>
+    <input type="radio" name="q2" value="correcto"> Inti Raymi - Corpus Christi<br>
+    <input type="radio" name="q2" value="incorrecto"> Carnaval<br>
+    <input type="radio" name="q2" value="incorrecto"> Navidad<br>
+  </div>
+  <button onclick="evaluar()">Evaluar</button>
+  <script>
+    function evaluar() {
+      const correctas = [...document.querySelectorAll('input[type=radio]:checked')].filter(e => e.value === 'correcto').length;
+      alert(correctas === 2 ? '✅ ¡Perfecto!' : '❌ Intenta de nuevo.');
+    }
+  </script>
+</body>
+</html>

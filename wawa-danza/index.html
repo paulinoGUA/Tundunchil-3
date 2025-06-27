@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Diseña tu Wawa Danza</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; background: #f4f4f4; padding: 2em; }
+    img { width: 300px; }
+    .zona-drop { border: 2px dashed #aaa; padding: 10px; margin: 10px; }
+    .pieza { background: #2980b9; color: white; padding: 10px; margin: 5px; border-radius: 6px; cursor: grab; display: inline-block; }
+  </style>
+</head>
+<body>
+  <h2>🎭 Diseña tu Wawa Danza</h2>
+  <img src="assets/wawa-danza.png" alt="Wawa Danza">
+  <div class="zona-drop" data-correct="polainas">Zona: Polainas</div>
+  <div class="zona-drop" data-correct="alfanje">Zona: Alfanje</div>
+  <div class="zona-drop" data-correct="tauna">Zona: Tauna</div>
+  <div class="pieza" draggable="true">polainas</div>
+  <div class="pieza" draggable="true">alfanje</div>
+  <div class="pieza" draggable="true">tauna</div>
+  <button onclick="evaluar()">Evaluar</button>
+  <script>
+    let arrastrada = null;
+    document.querySelectorAll('.pieza').forEach(p => p.addEventListener('dragstart', () => arrastrada = p));
+    document.querySelectorAll('.zona-drop').forEach(z => {
+      z.addEventListener('dragover', e => e.preventDefault());
+      z.addEventListener('drop', () => {
+        if (arrastrada) {
+          z.textContent = arrastrada.textContent;
+          z.setAttribute('data-user', arrastrada.textContent);
+        }
+      });
+    });
+    function evaluar() {
+      let correctas = 0;
+      document.querySelectorAll('.zona-drop').forEach(z => {
+        if (z.getAttribute('data-user') === z.getAttribute('data-correct')) correctas++;
+      });
+      alert(correctas === 3 ? "✅ ¡Bien armado!" : "❌ Revisa las piezas.");
+    }
+  </script>
+</body>
+</html>
